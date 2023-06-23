@@ -15,17 +15,17 @@ export class PasswordStrengthComponent {
       this.mod = 'short'
       this.mod = 'weak'
     } else if (
-      this.hasLeters() &&
-      this.password.match(/[0-9]/) &&
-      this.password.match(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/)
+      this.hasLetters() &&
+      this.hasDigit()&&
+      this.hasSymbols()
     ) {
       this.mod = 'strong';
     }else if (
-      (this.hasLeters() && this.password.match(/[0-9]/)) ||
-      (this.hasLeters() &&
-        this.password.match(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/)) ||
-      (this.password.match(/[0-9]/) &&
-        this.password.match(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/))
+      (this.hasLetters() && this.hasDigit()) ||
+      (this.hasLetters() &&
+      this.hasSymbols()) ||
+      (this.hasDigit() &&
+      this.hasSymbols())
     ){
       this.mod = 'middle'
     }else{
@@ -33,7 +33,13 @@ export class PasswordStrengthComponent {
     }
   }
 
-  hasLeters():boolean{
-    return this.password.match(/[a-zA-Z]/) !== null
+  hasLetters():boolean{
+    return this.password.match(/[a-zA-Z]/) !== null;
+  }
+  hasDigit():boolean{
+    return this.password.match(/[0-9]/) !== null;
+  }
+  hasSymbols():boolean{
+    return   this.password.match(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/) !== null;
   }
 } 
